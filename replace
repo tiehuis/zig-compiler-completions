@@ -1,0 +1,40 @@
+#!/bin/bash
+
+zsh_file="completions/_zig"
+bash_file="completions/zig.bash-completion"
+
+ensure_exists() {
+    if [ ! -f "$1" ]; then
+        echo "required file does not exist '$1'"
+        exit 1
+    fi
+}
+
+# clap does not allow single-dash arguments so we set as double-dash and
+# replace in the files directly.
+single_dash_args() {
+    replacements=(
+        idirafter
+        isystem
+        L
+        rdynamic
+        rpath
+        mconsole
+        mwindows
+        municode
+        framework
+        mios-version-min
+        mlinker-version
+        mmacosx-version-min
+    )
+
+    for replacement in ${replacements[@]}; do
+        sed -i "s/--$replacement/-$replacement/g" "$1"
+    done
+}
+
+ensure_exists "$zsh_file"
+ensure_exists "$bash_file"
+
+single_dash_args "$zsh_file"
+single_dash_args "$bash_file"

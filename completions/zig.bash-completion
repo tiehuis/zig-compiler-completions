@@ -1,0 +1,595 @@
+_zig() {
+    local i cur prev opts cmds
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    cmd=""
+    opts=""
+
+    for i in ${COMP_WORDS[@]}
+    do
+        case "${i}" in
+            zig)
+                cmd="zig"
+                ;;
+            
+            build)
+                cmd+="__build"
+                ;;
+            build_exe)
+                cmd+="__build_exe"
+                ;;
+            build_lib)
+                cmd+="__build_lib"
+                ;;
+            build_obj)
+                cmd+="__build_obj"
+                ;;
+            parseh)
+                cmd+="__parseh"
+                ;;
+            targets)
+                cmd+="__targets"
+                ;;
+            test)
+                cmd+="__test"
+                ;;
+            version)
+                cmd+="__version"
+                ;;
+            zen)
+                cmd+="__zen"
+                ;;
+            *)
+                ;;
+        esac
+    done
+
+    case "${cmd}" in
+        zig)
+            opts=" build build_exe build_lib build_obj parseh targets test version zen"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+        
+        zig__build)
+            opts=" --verbose --debug-build-verbose --version --build-file --cache-dir --prefix  "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                --build-file)
+                    COMPREPLY=("<file>")
+                    return 0
+                    ;;
+                --cache-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --prefix)
+                    COMPREPLY=("<prefix>")
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+        zig__build_exe)
+            opts=" --enable-timing-info --pkg-end --release-fast --release-safe --static --strip --verbose --each-lib-rpath -rdynamic -mconsole -mwindows -municode --assembly --cache-dir --color --libc-include-dir --name --output --output-h --pkg-begin --target-arch --target-environ --target-os --zig-std-dir --dirafter -isystem --ar-path --dynamic-linker --libc-lib-dir --libc-static-lib-dir --library --library-path --linker-script --object -L -rpath -framework -mios-version-min -mlinker-version -mmacosx-version-min --ver-major --ver-minor --ver-patch  <source> "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                --assembly)
+                    COMPREPLY=("<source>")
+                    return 0
+                    ;;
+                --cache-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --color)
+                    COMPREPLY=("<auto|off|on>")
+                    return 0
+                    ;;
+                --libc-include-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --name)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --output)
+                    COMPREPLY=("<file>")
+                    return 0
+                    ;;
+                --output-h)
+                    COMPREPLY=("<file>")
+                    return 0
+                    ;;
+                --pkg-begin)
+                    COMPREPLY=("<name> <path>")
+                    return 0
+                    ;;
+                --target-arch)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --target-environ)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --target-os)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --zig-std-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --dirafter)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                -isystem)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                --ar-path)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --dynamic-linker)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --libc-lib-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --libc-static-lib-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --library)
+                    COMPREPLY=("<lib>")
+                    return 0
+                    ;;
+                --library-path)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                --linker-script)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --object)
+                    COMPREPLY=("<obj>")
+                    return 0
+                    ;;
+                -L)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                -rpath)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                -framework)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                -mios-version-min)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                -mlinker-version)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                -mmacosx-version-min)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                --ver-major)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                --ver-minor)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                --ver-patch)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+        zig__build_lib)
+            opts=" --enable-timing-info --pkg-end --release-fast --release-safe --static --strip --verbose --each-lib-rpath -rdynamic -mconsole -mwindows -municode --assembly --cache-dir --color --libc-include-dir --name --output --output-h --pkg-begin --target-arch --target-environ --target-os --zig-std-dir --dirafter -isystem --ar-path --dynamic-linker --libc-lib-dir --libc-static-lib-dir --library --library-path --linker-script --object -L -rpath -framework -mios-version-min -mlinker-version -mmacosx-version-min --ver-major --ver-minor --ver-patch  <source> "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                --assembly)
+                    COMPREPLY=("<source>")
+                    return 0
+                    ;;
+                --cache-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --color)
+                    COMPREPLY=("<auto|off|on>")
+                    return 0
+                    ;;
+                --libc-include-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --name)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --output)
+                    COMPREPLY=("<file>")
+                    return 0
+                    ;;
+                --output-h)
+                    COMPREPLY=("<file>")
+                    return 0
+                    ;;
+                --pkg-begin)
+                    COMPREPLY=("<name> <path>")
+                    return 0
+                    ;;
+                --target-arch)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --target-environ)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --target-os)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --zig-std-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --dirafter)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                -isystem)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                --ar-path)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --dynamic-linker)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --libc-lib-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --libc-static-lib-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --library)
+                    COMPREPLY=("<lib>")
+                    return 0
+                    ;;
+                --library-path)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                --linker-script)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --object)
+                    COMPREPLY=("<obj>")
+                    return 0
+                    ;;
+                -L)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                -rpath)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                -framework)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                -mios-version-min)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                -mlinker-version)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                -mmacosx-version-min)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                --ver-major)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                --ver-minor)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                --ver-patch)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+        zig__build_obj)
+            opts=" --enable-timing-info --pkg-end --release-fast --release-safe --static --strip --verbose --each-lib-rpath -rdynamic -mconsole -mwindows -municode --assembly --cache-dir --color --libc-include-dir --name --output --output-h --pkg-begin --target-arch --target-environ --target-os --zig-std-dir --dirafter -isystem --ar-path --dynamic-linker --libc-lib-dir --libc-static-lib-dir --library --library-path --linker-script --object -L -rpath -framework -mios-version-min -mlinker-version -mmacosx-version-min --ver-major --ver-minor --ver-patch  <source> "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                --assembly)
+                    COMPREPLY=("<source>")
+                    return 0
+                    ;;
+                --cache-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --color)
+                    COMPREPLY=("<auto|off|on>")
+                    return 0
+                    ;;
+                --libc-include-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --name)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --output)
+                    COMPREPLY=("<file>")
+                    return 0
+                    ;;
+                --output-h)
+                    COMPREPLY=("<file>")
+                    return 0
+                    ;;
+                --pkg-begin)
+                    COMPREPLY=("<name> <path>")
+                    return 0
+                    ;;
+                --target-arch)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --target-environ)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --target-os)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                --zig-std-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --dirafter)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                -isystem)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                --ar-path)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --dynamic-linker)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --libc-lib-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --libc-static-lib-dir)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --library)
+                    COMPREPLY=("<lib>")
+                    return 0
+                    ;;
+                --library-path)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                --linker-script)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                --object)
+                    COMPREPLY=("<obj>")
+                    return 0
+                    ;;
+                -L)
+                    COMPREPLY=("<dir>")
+                    return 0
+                    ;;
+                -rpath)
+                    COMPREPLY=("<path>")
+                    return 0
+                    ;;
+                -framework)
+                    COMPREPLY=("<name>")
+                    return 0
+                    ;;
+                -mios-version-min)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                -mlinker-version)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                -mmacosx-version-min)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                --ver-major)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                --ver-minor)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                --ver-patch)
+                    COMPREPLY=("<ver>")
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+        zig__parseh)
+            opts=" <source> "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+        zig__targets)
+            opts=" "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+        zig__test)
+            opts=" --test-filter --test-name-prefix  <source> "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                --test-filter)
+                    COMPREPLY=("<text>")
+                    return 0
+                    ;;
+                --test-name-prefix)
+                    COMPREPLY=("<text>")
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+        zig__version)
+            opts=" "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+        zig__zen)
+            opts=" "
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+                return 0
+            fi
+            case "${prev}" in
+                
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+            return 0
+            ;;
+    esac
+}
+
+complete -F _zig -o bashdefault -o default zig
