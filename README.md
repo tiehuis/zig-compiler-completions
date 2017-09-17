@@ -5,6 +5,8 @@ cargo run
 # fair bit of manual changes to the zsh script
 ```
 
+**TODO**: Automate more of the generation or clean up the generated scripts.
+
 ## Installation
 
 ### bash
@@ -13,9 +15,19 @@ cargo run
 source completions/zig.bash-completion
 ```
 
+### zsh
+
+#### manual
+
 ```
 mv completions/_zig <path present in $fpath>
 compinit -Uz _zig
 ```
 
-**TODO**: Automate more of the generation or clean up the generated scripts.
+#### zplug
+
+Add the following to your zsh config.
+
+```
+zplug "tiheuis/zig-compiler-completions", use:"completions/_zig", defer:2
+```
