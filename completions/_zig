@@ -23,7 +23,7 @@ _arguments -s -S -C \
 "--debug-build-verbose[Print verbose debugging information for the build system itself]" \
 && ret=0
 ;;
-(build_exe)
+(build-exe)
 _arguments -s -S -C \
 "--assembly+[add assembly file to build]:file:_files" \
 "--cache-dir+[override the cache directory]:path:_files" \
@@ -71,7 +71,7 @@ _arguments -s -S -C \
 "*:source:_files" \
 && ret=0
 ;;
-(build_lib)
+(build-lib)
 _arguments -s -S -C \
 "--assembly+[add assembly file to build]:file:_files" \
 "--cache-dir+[override the cache directory]:path:_files" \
@@ -119,7 +119,7 @@ _arguments -s -S -C \
 "*:source:_files" \
 && ret=0
 ;;
-(build_obj)
+(build-obj)
 _arguments -s -S -C \
 "--assembly+[add assembly file to build]:file:_files" \
 "--cache-dir+[override the cache directory]:path:_files" \
@@ -200,14 +200,14 @@ esac
 _zig_commands() {
     local commands; commands=(
         "build:build project from build.zig" \
-"build_exe:create executable from source or object files" \
-"build_lib:create library from source or object files" \
-"build_obj:create object from source or assembly" \
+"build-exe:create executable from source or object files" \
+"build-lib:create library from source or object files" \
+"build-obj:create object from source or assembly" \
 "parseh:convert a c header file to zig extern declarations" \
 "targets:list available compilation targets" \
 "test:create and run a test build" \
 "version:print version number and exit" \
-"zen:print zen of zig and exit" \
+"zen:print zen of zig and 1exit" \
     )
     _describe -t commands 'zig commands' commands "$@"
 }
@@ -221,19 +221,19 @@ _zig__build_commands() {
 _zig__build_exe_commands() {
     local commands; commands=(
     )
-    _describe -t commands 'zig build_exe commands' commands "$@"
+    _describe -t commands 'zig build-exe commands' commands "$@"
 }
 (( $+functions[_zig__build_lib_commands] )) ||
 _zig__build_lib_commands() {
     local commands; commands=(
     )
-    _describe -t commands 'zig build_lib commands' commands "$@"
+    _describe -t commands 'zig build-lib commands' commands "$@"
 }
 (( $+functions[_zig__build_obj_commands] )) ||
 _zig__build_obj_commands() {
     local commands; commands=(
     )
-    _describe -t commands 'zig build_obj commands' commands "$@"
+    _describe -t commands 'zig build-obj commands' commands "$@"
 }
 (( $+functions[_zig__parseh_commands] )) ||
 _zig__parseh_commands() {

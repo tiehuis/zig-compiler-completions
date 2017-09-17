@@ -12,17 +12,17 @@ _zig() {
             zig)
                 cmd="zig"
                 ;;
-            
+
             build)
                 cmd+="__build"
                 ;;
-            build_exe)
+            build-exe)
                 cmd+="__build_exe"
                 ;;
-            build_lib)
+            build-lib)
                 cmd+="__build_lib"
                 ;;
-            build_obj)
+            build-obj)
                 cmd+="__build_obj"
                 ;;
             parseh)
@@ -47,13 +47,13 @@ _zig() {
 
     case "${cmd}" in
         zig)
-            opts=" build build_exe build_lib build_obj parseh targets test version zen"
+            opts=" build build-exe build-lib build-obj parseh targets test version zen"
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
                 return 0
             fi
             case "${prev}" in
-                
+
                 *)
                     COMPREPLY=()
                     ;;
@@ -61,7 +61,7 @@ _zig() {
             COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
             return 0
             ;;
-        
+
         zig__build)
             opts=" --verbose --debug-build-verbose --version --build-file --cache-dir --prefix  "
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
@@ -69,7 +69,7 @@ _zig() {
                 return 0
             fi
             case "${prev}" in
-                
+
                 --build-file)
                     COMPREPLY=("<file>")
                     return 0
@@ -96,7 +96,7 @@ _zig() {
                 return 0
             fi
             case "${prev}" in
-                
+
                 --assembly)
                     COMPREPLY=("<source>")
                     return 0
@@ -235,7 +235,7 @@ _zig() {
                 return 0
             fi
             case "${prev}" in
-                
+
                 --assembly)
                     COMPREPLY=("<source>")
                     return 0
@@ -374,7 +374,7 @@ _zig() {
                 return 0
             fi
             case "${prev}" in
-                
+
                 --assembly)
                     COMPREPLY=("<source>")
                     return 0
@@ -513,7 +513,7 @@ _zig() {
                 return 0
             fi
             case "${prev}" in
-                
+
                 *)
                     COMPREPLY=()
                     ;;
@@ -528,7 +528,7 @@ _zig() {
                 return 0
             fi
             case "${prev}" in
-                
+
                 *)
                     COMPREPLY=()
                     ;;
@@ -543,7 +543,7 @@ _zig() {
                 return 0
             fi
             case "${prev}" in
-                
+
                 --test-filter)
                     COMPREPLY=("<text>")
                     return 0
@@ -566,7 +566,7 @@ _zig() {
                 return 0
             fi
             case "${prev}" in
-                
+
                 *)
                     COMPREPLY=()
                     ;;
@@ -581,7 +581,7 @@ _zig() {
                 return 0
             fi
             case "${prev}" in
-                
+
                 *)
                     COMPREPLY=()
                     ;;
