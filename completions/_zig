@@ -39,6 +39,7 @@ _arguments -s -S -C \
 "--zig-std-dir+[directory where zig standard library resides]:path:_files" \
 "-dirafter+[same as -isystem but do it last]:dir:_files" \
 "-isystem+[add additional search path for other .h files]:dir:_files" \
+"-mllvm+[additional arguments to forward to LLVM's option processing]:arg" \
 "--ar-path+[set the path to ar]:path:_files" \
 "--dynamic-linker+[set the path to ld.so]:path:_files" \
 "--libc-lib-dir+[directory where libc crt1.o resides]:path:_files" \
@@ -63,6 +64,7 @@ _arguments -s -S -C \
 "--static[output will be statically linked]" \
 "--strip[exclude debug symbols]" \
 "--verbose[turn on compiler debug output]" \
+"--verbose-link[turn on compiler debug output for linking only]" \
 "--each-lib-rpath[add rpath for each used dynamic library]" \
 "-rdynamic[add all symbols to the dynamic symbol table]" \
 "-mconsole[(windows) --subsystem console to the linker]" \
@@ -87,6 +89,7 @@ _arguments -s -S -C \
 "--zig-std-dir+[directory where zig standard library resides]:path:_files" \
 "-dirafter+[same as -isystem but do it last]:dir:_files" \
 "-isystem+[add additional search path for other .h files]:dir:_files" \
+"-mllvm+[additional arguments to forward to LLVM's option processing]:arg" \
 "--ar-path+[set the path to ar]:path:_files" \
 "--dynamic-linker+[set the path to ld.so]:path:_files" \
 "--libc-lib-dir+[directory where libc crt1.o resides]:path:_files" \
@@ -111,6 +114,7 @@ _arguments -s -S -C \
 "--static[output will be statically linked]" \
 "--strip[exclude debug symbols]" \
 "--verbose[turn on compiler debug output]" \
+"--verbose-link[turn on compiler debug output for linking only]" \
 "--each-lib-rpath[add rpath for each used dynamic library]" \
 "-rdynamic[add all symbols to the dynamic symbol table]" \
 "-mconsole[(windows) --subsystem console to the linker]" \
@@ -135,6 +139,7 @@ _arguments -s -S -C \
 "--zig-std-dir+[directory where zig standard library resides]:path:_files" \
 "-dirafter+[same as -isystem but do it last]:dir:_files" \
 "-isystem+[add additional search path for other .h files]:dir:_files" \
+"-mllvm+[additional arguments to forward to LLVM's option processing]:arg" \
 "--ar-path+[set the path to ar]:path:_files" \
 "--dynamic-linker+[set the path to ld.so]:path:_files" \
 "--libc-lib-dir+[directory where libc crt1.o resides]:path:_files" \
@@ -159,6 +164,7 @@ _arguments -s -S -C \
 "--static[output will be statically linked]" \
 "--strip[exclude debug symbols]" \
 "--verbose[turn on compiler debug output]" \
+"--verbose-link[turn on compiler debug output for linking only]" \
 "--each-lib-rpath[add rpath for each used dynamic library]" \
 "-rdynamic[add all symbols to the dynamic symbol table]" \
 "-mconsole[(windows) --subsystem console to the linker]" \
@@ -167,9 +173,9 @@ _arguments -s -S -C \
 "*:source:_files" \
 && ret=0
 ;;
-(parseh)
+(parsec)
 _arguments -s -S -C \
-"1:: :_zig__parseh_commands" \
+"1:: :_zig__parsec_commands" \
 && ret=0
 ;;
 (targets)
@@ -203,7 +209,7 @@ _zig_commands() {
 "build-exe:create executable from source or object files" \
 "build-lib:create library from source or object files" \
 "build-obj:create object from source or assembly" \
-"parseh:convert a c header file to zig extern declarations" \
+"parsec:convert a c header file to zig extern declarations" \
 "targets:list available compilation targets" \
 "test:create and run a test build" \
 "version:print version number and exit" \
@@ -235,11 +241,11 @@ _zig__build_obj_commands() {
     )
     _describe -t commands 'zig build-obj commands' commands "$@"
 }
-(( $+functions[_zig__parseh_commands] )) ||
-_zig__parseh_commands() {
+(( $+functions[_zig__parsec_commands] )) ||
+_zig__parsec_commands() {
     local commands; commands=(
     )
-    _describe -t commands 'zig parseh commands' commands "$@"
+    _describe -t commands 'zig parsec commands' commands "$@"
 }
 (( $+functions[_zig__targets_commands] )) ||
 _zig__targets_commands() {
